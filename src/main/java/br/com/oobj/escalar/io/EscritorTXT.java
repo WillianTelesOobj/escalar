@@ -12,10 +12,7 @@ public class EscritorTXT {
             LocalDateTime currentDateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
             String formattedDateTime = currentDateTime.format(formatter);
-
             FileWriter entrada = new FileWriter("src/main/resources/entrada/pre-impressao-" + formattedDateTime + ".txt");
-//            FileWriter entrada = new FileWriter("C:\\Users\\Willian\\Downloads\\pre-impressao-" + formattedDateTime + ".txt");
-
             entrada.write(requisicao);
             entrada.close();
             System.out.println("Arquivo salvo com sucesso!");
