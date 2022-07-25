@@ -2,11 +2,12 @@ package br.com.oobj.escalar.jms;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.util.Scanner;
 
 public class Consumidor {
 
-    public static void main (String [] args) throws Exception {
+    public void recebeMensagem() throws NamingException, JMSException {
         InitialContext context = new InitialContext();
         ConnectionFactory factory = (ConnectionFactory)context.lookup("ConnectionFactory");
         Connection connection = factory.createConnection();
@@ -16,10 +17,9 @@ public class Consumidor {
 
         MessageConsumer consumer = session.createConsumer(fila);
         consumer.setMessageListener(message -> {
-            TextMessage textMessage = (TextMessage)message;
-
+            TextMessage textMessage = (TextMessage) message;
             try {
-                System.out.println(textMessage.getText());
+                System.out.println("A mensagem recebida foi: " + textMessage.getText());
             } catch (JMSException e) {
                 throw new RuntimeException(e);
             }
