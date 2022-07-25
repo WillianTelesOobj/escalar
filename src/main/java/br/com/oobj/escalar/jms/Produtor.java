@@ -3,16 +3,8 @@ package br.com.oobj.escalar.jms;
 import javax.jms.*;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.io.File;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static java.util.Objects.requireNonNull;
 
 public class Produtor {
-
-    private static final String DIRETORIO = "src/main/resources/entrada";
 
     public void enviaMensagem(String requisicao) throws NamingException, JMSException {
         InitialContext context = new InitialContext();
@@ -32,11 +24,5 @@ public class Produtor {
         session.close();
         connection.close();
         context.close();
-    }
-
-    private static Set<File> listFilesFrom(String diretorio) {
-        return Stream.of(requireNonNull(new File(diretorio).listFiles()))
-                .filter(file -> !file.isDirectory())
-                .collect(Collectors.toSet());
     }
 }
