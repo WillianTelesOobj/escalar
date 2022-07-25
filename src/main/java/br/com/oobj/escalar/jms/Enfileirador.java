@@ -4,7 +4,7 @@ import javax.jms.*;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class Produtor {
+public class Enfileirador {
 
     public void enviaMensagem(String requisicao) throws NamingException, JMSException {
         InitialContext context = new InitialContext();
