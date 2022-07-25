@@ -20,7 +20,7 @@ public class IntegradorController {
     @PostMapping("/pre-impressao")
     public ResponseEntity<String> chegadaRequisicao(@RequestBody String requisicao) {
         try {
-            escritorTXT.escreve(requisicao);
+            escritorTXT.escreve(requisicao, "entrada", "src/main/resources/entrada/");
             produtor.enviaMensagem(requisicao);
             consumidor.recebeMensagem();
             return new ResponseEntity<>("{\"preImpressaoSolicitada\": \"true\"}", HttpStatus.OK);

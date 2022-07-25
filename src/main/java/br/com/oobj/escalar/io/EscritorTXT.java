@@ -7,14 +7,20 @@ import java.time.format.DateTimeFormatter;
 
 public class EscritorTXT {
 
-    public <T> void escreve(String requisicao) {
+    public <T> void escreve(String mensagem, String tipo, String diretorio) {
         try {
             LocalDateTime currentDateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
             String formattedDateTime = currentDateTime.format(formatter);
-            FileWriter entrada = new FileWriter("src/main/resources/entrada/pre-impressao-" + formattedDateTime + ".txt");
-            entrada.write(requisicao);
-            entrada.close();
+            if (tipo.equals("entrada")) {
+                FileWriter entrada = new FileWriter(diretorio + "pre-impressao-" + formattedDateTime + ".txt");
+                entrada.write(mensagem);
+                entrada.close();
+            } else if (tipo.equals("saida")) {
+                FileWriter saida = new FileWriter(diretorio + "pre-impressao-" + formattedDateTime + "-retorno.txt");
+                saida.write(mensagem);
+                saida.close();
+            }
             System.out.println("Arquivo salvo com sucesso!");
         } catch (IOException e) {
             System.out.println("Erro ao salvar o arquivo!");
