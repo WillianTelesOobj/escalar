@@ -1,13 +1,10 @@
 package br.com.oobj.escalar.jms;
 
-import br.com.oobj.escalar.io.LeitorTXT;
-
 import javax.jms.*;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,16 +24,11 @@ public class Produtor {
         Destination fila = (Destination) context.lookup("fila");
 
         MessageProducer producer = session.createProducer(fila);
-        Message message = session.createTextMessage(requisicao);
-        producer.send(message);
-
-//        LeitorTXT leitorTXT = new LeitorTXT();
-//        Set<File> arquivos = listFilesFrom(DIRETORIO);
-//        for (File arquivo : arquivos) {
-//            String mensagem = leitorTXT.leia(String.valueOf(arquivo), StandardCharsets.ISO_8859_1);
-//            Message message = session.createTextMessage(mensagem);
-//            producer.send(message);
-//        }
+        String[] requisicaoArray = requisicao.split("IMPRESSORA;MANIFESTO");
+        for (int i = 1; i < (requisicaoArray.length); i++) {
+            Message message = session.createTextMessage("IMPRESSORA;MANIFESTO" + requisicaoArray[i]);
+            producer.send(message);
+        }
 
         session.close();
         connection.close();
