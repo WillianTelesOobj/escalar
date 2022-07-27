@@ -10,10 +10,10 @@ public class ProcessadorDeArquivos {
 
     private static final String DiretorioEntrada = "src/main/resources/entrada/";
     private final EscritorTXT escritorTXT = new EscritorTXT();
-    private final Enfileirador produtor = new Enfileirador();
+    private final Enfileirador enfileirador = new Enfileirador();
 
     public void processaArquivo(String requisicao) throws NamingException, JMSException {
         escritorTXT.escreve(requisicao, "entrada", DiretorioEntrada);
-        produtor.enviaMensagem(requisicao);
+        enfileirador.enviaMensagem(requisicao);
     }
 }
