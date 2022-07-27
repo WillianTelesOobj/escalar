@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class IntegradorController {
 
-    private final ProcessadorDeArquivos processadorDeArquivos = new ProcessadorDeArquivos();
+    private final ProcessadorDeArquivos processadorDeArquivos;
+
+    public IntegradorController(ProcessadorDeArquivos processadorDeArquivos) {
+        this.processadorDeArquivos = processadorDeArquivos;
+    }
 
     @PostMapping("/api/pre-impressao")
     public ResponseEntity<String> chegadaRequisicao(@RequestBody String requisicao) {

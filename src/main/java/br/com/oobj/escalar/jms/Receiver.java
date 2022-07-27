@@ -15,7 +15,11 @@ import javax.jms.TextMessage;
 public class Receiver implements MessageListener {
 
     private static final Logger logger = LoggerFactory.getLogger(Enfileirador.class);
-    private final TratadorDeArquivos tratadorDeArquivos = new TratadorDeArquivos();
+    private final TratadorDeArquivos tratadorDeArquivos;
+
+    public Receiver(TratadorDeArquivos tratadorDeArquivos) {
+        this.tratadorDeArquivos = tratadorDeArquivos;
+    }
 
     @JmsListener(destination = "pre_impressao", concurrency = "5")
     @Override

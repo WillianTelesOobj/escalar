@@ -1,10 +1,13 @@
 package br.com.oobj.escalar.io;
 
+import org.springframework.stereotype.Component;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Component
 public class EscritorTXT {
 
     public <T> void escreve(String mensagem, String tipo, String diretorio) {

@@ -1,13 +1,19 @@
 package br.com.oobj.escalar.processador;
 
 import br.com.oobj.escalar.io.EscritorTXT;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 
+@Component
 public class SaideDeArquivos {
 
-    private static final EscritorTXT escritorTXT = new EscritorTXT();
+    private static EscritorTXT escritorTXT;
+
+    public SaideDeArquivos(EscritorTXT escritorTXT) {
+        SaideDeArquivos.escritorTXT = escritorTXT;
+    }
 
     public static void enviaArquivo(int qtdMsgRecebidas, List<String> msgRecebidas) {
         if(qtdMsgRecebidas == 44) {
