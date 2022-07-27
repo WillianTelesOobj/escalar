@@ -1,9 +1,12 @@
 package br.com.oobj.escalar.jms;
 
+import org.springframework.stereotype.Component;
+
 import javax.jms.*;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+@Component
 public class Enfileirador {
 
     public void enviaMensagem(String requisicao) throws NamingException, JMSException {
@@ -19,6 +22,10 @@ public class Enfileirador {
         for (int i = 1; i < (requisicaoArray.length); i++) {
             Message message = session.createTextMessage("IMPRESSORA;MANIFESTO" + requisicaoArray[i]);
             producer.send(message);
+            if (i == requisicaoArray.length - 1) {
+                message = session.createTextMessage("FINAL");
+                producer.send(message);
+            }
         }
 
         session.close();
