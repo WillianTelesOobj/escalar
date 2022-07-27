@@ -6,6 +6,8 @@ import javax.naming.NamingException;
 
 public class Enfileirador {
 
+//    private List<String> mensagensEnviadas = new ArrayList<>();
+
     public void enviaMensagem(String requisicao) throws NamingException, JMSException {
         InitialContext context = new InitialContext();
         ConnectionFactory factory = (ConnectionFactory) context.lookup("ConnectionFactory");
@@ -16,6 +18,9 @@ public class Enfileirador {
 
         MessageProducer producer = session.createProducer(fila);
         String[] requisicaoArray = requisicao.split("IMPRESSORA;MANIFESTO");
+
+//        this.mensagensEnviadas = Arrays.asList(requisicaoArray);
+
         for (int i = 1; i < (requisicaoArray.length); i++) {
             Message message = session.createTextMessage("IMPRESSORA;MANIFESTO" + requisicaoArray[i]);
             producer.send(message);
@@ -25,4 +30,8 @@ public class Enfileirador {
         connection.close();
         context.close();
     }
+
+//    public Integer getQuantidadeMensagensEnviadas() {
+//        return this.mensagensEnviadas.size() - 1;
+//    }
 }
