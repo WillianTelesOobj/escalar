@@ -21,9 +21,11 @@ public class Enfileirador {
         String[] requisicaoArray = requisicao.split("IMPRESSORA;MANIFESTO");
         for (int i = 1; i < (requisicaoArray.length); i++) {
             Message message = session.createTextMessage("IMPRESSORA;MANIFESTO" + requisicaoArray[i]);
+            message.setJMSPriority(9);
             producer.send(message);
             if (i == requisicaoArray.length - 1) {
                 message = session.createTextMessage("FINAL");
+                message.setJMSPriority(0);
                 producer.send(message);
             }
         }
