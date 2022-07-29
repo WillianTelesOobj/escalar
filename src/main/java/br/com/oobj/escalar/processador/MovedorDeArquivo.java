@@ -14,7 +14,7 @@ public class MovedorDeArquivo {
         try {
             Path pathSource = Paths.get(diretorioOrigem + nomeArquivo);
             Path pathTarget = Paths.get(diretorioDestino + nomeArquivo);
-            Files.copy(pathSource, pathTarget);
+            Files.move(pathSource, pathTarget);
             System.out.println("Arquivo de entrada copiado para pasta de processados!");
         } catch (IOException e) {
             e.printStackTrace();
