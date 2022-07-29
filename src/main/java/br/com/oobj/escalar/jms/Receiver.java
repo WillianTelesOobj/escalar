@@ -34,8 +34,8 @@ public class Receiver implements MessageListener {
             String mensagemRecebida = ((TextMessage) message).getText();
 
             String jmsMessageID = message.getJMSMessageID();
-            int indexId = jmsMessageID.lastIndexOf(":");
-            String numeroId = jmsMessageID.substring(indexId + 1);
+            int indexId = jmsMessageID.lastIndexOf("-");
+            String numeroId = jmsMessageID.substring(indexId + 1).replace(":", "");
 
             treeMap.put(Integer.valueOf(numeroId), mensagemRecebida);
             if (treeMap.containsValue("*****EOF*****")) {
@@ -46,7 +46,8 @@ public class Receiver implements MessageListener {
             }
         } catch (JMSException e) {
             logger.error("Problema ao consumir mensagem da fila {}. {}", "pre_impressao", e.getMessage());
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             logger.error("Erro ao salvar arquivo de saída. " + e.getMessage());
         }
     }
