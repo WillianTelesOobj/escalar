@@ -30,8 +30,8 @@ public class Receiver implements MessageListener {
             String mensagemRecebida = ((TextMessage) message).getText();
 
             String jmsMessageID = message.getJMSMessageID();
-            int indexId = jmsMessageID.indexOf("1:1:1:");
-            String numeroId = jmsMessageID.substring(indexId + 6);
+            int indexId = jmsMessageID.lastIndexOf(":");
+            String numeroId = jmsMessageID.substring(indexId + 1);
 
             treeMap.put(Integer.valueOf(numeroId), mensagemRecebida);
             if (treeMap.containsValue("FINAL")) {
