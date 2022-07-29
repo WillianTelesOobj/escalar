@@ -1,5 +1,6 @@
 package br.com.oobj.escalar.jms;
 
+import br.com.oobj.escalar.processador.SaideDeArquivos;
 import br.com.oobj.escalar.processador.TratadorDeArquivos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import java.io.IOException;
 import java.util.*;
 
 @Component
@@ -18,9 +20,11 @@ public class Receiver implements MessageListener {
     private final Logger logger = LoggerFactory.getLogger(Enfileirador.class);
     private final TratadorDeArquivos tratadorDeArquivos;
     private final TreeMap<Integer, String> treeMap = new TreeMap<>();
+    private final SaideDeArquivos saideDeArquivos;
 
-    public Receiver(TratadorDeArquivos tratadorDeArquivos) {
+    public Receiver(TratadorDeArquivos tratadorDeArquivos, SaideDeArquivos saideDeArquivos) {
         this.tratadorDeArquivos = tratadorDeArquivos;
+        this.saideDeArquivos = saideDeArquivos;
     }
 
     @JmsListener(destination = "pre_impressao", concurrency = "5")
@@ -34,14 +38,16 @@ public class Receiver implements MessageListener {
             String numeroId = jmsMessageID.substring(indexId + 1);
 
             treeMap.put(Integer.valueOf(numeroId), mensagemRecebida);
-            if (treeMap.containsValue("FINAL")) {
+            if (treeMap.containsValue("*****EOF*****")) {
                 String listaMensagens = treeMap.toString();
-                tratadorDeArquivos.tratarArquivo(listaMensagens);
+                String arquivoFinal = tratadorDeArquivos.tratarArquivo(listaMensagens);
+                saideDeArquivos.enviaArquivo(arquivoFinal);
                 treeMap.clear();
             }
         } catch (JMSException e) {
-            logger.error("Problema ao consumir mensagem da fila {}.", "pre_impressao");
-            throw new RuntimeException(e.getMessage());
+            logger.error("Problema ao consumir mensagem da fila {}. {}", "pre_impressao", e.getMessage());
+        } catch (IOException e) {
+            logger.error("Erro ao salvar arquivo de saída. " + e.getMessage());
         }
     }
 }

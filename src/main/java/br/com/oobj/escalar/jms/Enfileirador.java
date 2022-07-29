@@ -1,24 +1,15 @@
 package br.com.oobj.escalar.jms;
 
-import br.com.oobj.escalar.processador.MovedorDeArquivo;
 import org.springframework.stereotype.Component;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.io.IOException;
 
 @Component
 public class Enfileirador {
 
-    private final MovedorDeArquivo movedorDeArquivo;
-
-    public Enfileirador(MovedorDeArquivo movedorDeArquivo) {
-        this.movedorDeArquivo = movedorDeArquivo;
-    }
-
-    public void enviaMensagem(String arquivo, String nomeArquivo, String diretorioEntrada, String diretorioProcessados)
-            throws NamingException, JMSException {
+    public void enviaMensagem(String arquivo) throws NamingException, JMSException {
         InitialContext context = new InitialContext();
         ConnectionFactory factory = (ConnectionFactory) context.lookup("ConnectionFactory");
         Connection connection = factory.createConnection();
@@ -33,7 +24,7 @@ public class Enfileirador {
             message.setJMSMessageID(String.valueOf(i));
             producer.send(message);
             if (i == requisicaoArray.length - 1) {
-                message = session.createTextMessage("FINAL");
+                message = session.createTextMessage("*****EOF*****");
                 message.setJMSMessageID(String.valueOf(i+1));
                 producer.send(message);
             }
@@ -42,7 +33,5 @@ public class Enfileirador {
         session.close();
         connection.close();
         context.close();
-
-        movedorDeArquivo.moveArquivo(nomeArquivo, diretorioEntrada, diretorioProcessados);
     }
 }

@@ -2,19 +2,12 @@ package br.com.oobj.escalar.processador;
 
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 @Component
 public class TratadorDeArquivos {
 
-    private final SaideDeArquivos saideDeArquivos;
-
-    public TratadorDeArquivos(SaideDeArquivos saideDeArquivos) {
-        this.saideDeArquivos = saideDeArquivos;
-    }
-
-    public void tratarArquivo(String listaMensagens) {
+    public String tratarArquivo(String listaMensagens) throws IOException {
         String[] listaMensagensArray = listaMensagens.split("IMPRESSORA;MANIFESTO");
         StringBuilder mensagensTratadas = new StringBuilder();
 
@@ -36,6 +29,6 @@ public class TratadorDeArquivos {
                 mensagensTratadas.append(mensagemTratada).append(" ");
             }
         }
-        saideDeArquivos.enviaArquivo(mensagensTratadas.toString().replace(" , ", "\n"));
+        return mensagensTratadas.toString().replace(" , ", "\n");
     }
 }

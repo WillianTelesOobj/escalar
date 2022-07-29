@@ -8,22 +8,20 @@ import java.io.IOException;
 
 @Component
 public class LeitorTXT {
-    public <T> String leia(String arquivo, String diretorio) {
+
+    public <T> String leia(String arquivo, String diretorio) throws IOException {
         String arquivoLido = "";
-        try {
             BufferedReader buffRead = new BufferedReader(new FileReader(diretorio+arquivo));
             String linha = "";
             while (true) {
                 if (linha != null) {
                     arquivoLido += linha + "\n";
-                } else
+                } else {
                     break;
+                }
                 linha = buffRead.readLine();
             }
             buffRead.close();
             return arquivoLido;
-        } catch (IOException ex) {
-            throw new IllegalStateException(ex);
-        }
     }
 }

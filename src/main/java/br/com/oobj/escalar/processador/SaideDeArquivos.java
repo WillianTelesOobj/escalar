@@ -4,6 +4,8 @@ import br.com.oobj.escalar.io.EscritorTXT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 public class SaideDeArquivos {
 
@@ -15,7 +17,7 @@ public class SaideDeArquivos {
         this.escritorTXT = escritorTXT;
     }
 
-    public void enviaArquivo(String arquivoDeSaida) {
+    public void enviaArquivo(String arquivoDeSaida) throws IOException {
         escritorTXT.escreve(arquivoDeSaida, "saida", DiretorioSaida);
     }
 }

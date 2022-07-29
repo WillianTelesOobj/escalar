@@ -20,16 +20,29 @@ public class ProcessadorDeArquivos {
     private final EscritorTXT escritorTXT;
     private final Enfileirador enfileirador;
     private final LeitorTXT leitorTXT;
+    private final MovedorDeArquivo movedorDeArquivo;
 
-    public ProcessadorDeArquivos(EscritorTXT escritorTXT, Enfileirador enfileirador, LeitorTXT leitorTXT) {
+    public ProcessadorDeArquivos(EscritorTXT escritorTXT, Enfileirador enfileirador, LeitorTXT leitorTXT, MovedorDeArquivo movedorDeArquivo) {
         this.escritorTXT = escritorTXT;
         this.enfileirador = enfileirador;
         this.leitorTXT = leitorTXT;
+        this.movedorDeArquivo = movedorDeArquivo;
     }
 
-    public void processaArquivo(String requisicao) throws NamingException, JMSException {
-        String nomeArquivo = escritorTXT.escreve(requisicao, "entrada", DiretorioEntrada);
-        String arquivoLido = leitorTXT.leia(nomeArquivo, DiretorioEntrada);
-        enfileirador.enviaMensagem(arquivoLido, nomeArquivo, DiretorioEntrada, DiretorioProcessados);
+    public void processaArquivo(String requisicao) {
+        try {
+            String nomeArquivo = escritorTXT.escreve(requisicao, "entrada", DiretorioEntrada);
+            if (nomeArquivo != null) {
+                String arquivoLido = leitorTXT.leia(nomeArquivo, DiretorioEntrada);
+                enfileirador.enviaMensagem(arquivoLido);
+                movedorDeArquivo.moveArquivo(nomeArquivo, DiretorioEntrada, DiretorioProcessados);
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao escrever/ler arquivo. " + e.getMessage());
+        } catch (NamingException e) {
+            System.out.println("Erro ao configurar fila. " + e.getMessage());
+        } catch (JMSException e) {
+            System.out.println("Erro ao enviar arquivo para fila. " + e.getMessage());
+        }
     }
 }
