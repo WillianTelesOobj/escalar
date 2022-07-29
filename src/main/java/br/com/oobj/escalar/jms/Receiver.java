@@ -1,6 +1,6 @@
 package br.com.oobj.escalar.jms;
 
-import br.com.oobj.escalar.processador.SaideDeArquivos;
+import br.com.oobj.escalar.processador.SaidaDeArquivos;
 import br.com.oobj.escalar.processador.TratadorDeArquivos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +20,11 @@ public class Receiver implements MessageListener {
     private final Logger logger = LoggerFactory.getLogger(Enfileirador.class);
     private final TratadorDeArquivos tratadorDeArquivos;
     private final TreeMap<Integer, String> treeMap = new TreeMap<>();
-    private final SaideDeArquivos saideDeArquivos;
+    private final SaidaDeArquivos saidaDeArquivos;
 
-    public Receiver(TratadorDeArquivos tratadorDeArquivos, SaideDeArquivos saideDeArquivos) {
+    public Receiver(TratadorDeArquivos tratadorDeArquivos, SaidaDeArquivos saidaDeArquivos) {
         this.tratadorDeArquivos = tratadorDeArquivos;
-        this.saideDeArquivos = saideDeArquivos;
+        this.saidaDeArquivos = saidaDeArquivos;
     }
 
     @JmsListener(destination = "pre_impressao", concurrency = "5")
@@ -41,7 +41,7 @@ public class Receiver implements MessageListener {
             if (treeMap.containsValue("*****EOF*****")) {
                 String listaMensagens = treeMap.toString();
                 String arquivoFinal = tratadorDeArquivos.tratarArquivo(listaMensagens);
-                saideDeArquivos.enviaArquivo(arquivoFinal);
+                saidaDeArquivos.enviaArquivo(arquivoFinal);
                 treeMap.clear();
             }
         } catch (JMSException e) {

@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class SaideDeArquivos {
+public class SaidaDeArquivos {
 
     @Value("${escalar.diretorio.saida}")
     private String DiretorioSaida;
     private final EscritorTXT escritorTXT;
 
-    public SaideDeArquivos(EscritorTXT escritorTXT) {
+    public SaidaDeArquivos(EscritorTXT escritorTXT) {
         this.escritorTXT = escritorTXT;
     }
 

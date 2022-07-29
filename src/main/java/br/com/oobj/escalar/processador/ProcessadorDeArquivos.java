@@ -20,13 +20,13 @@ public class ProcessadorDeArquivos {
     private final EscritorTXT escritorTXT;
     private final Enfileirador enfileirador;
     private final LeitorTXT leitorTXT;
-    private final MovedorDeArquivo movedorDeArquivo;
+    private final MovedorDeArquivos movedorDeArquivos;
 
-    public ProcessadorDeArquivos(EscritorTXT escritorTXT, Enfileirador enfileirador, LeitorTXT leitorTXT, MovedorDeArquivo movedorDeArquivo) {
+    public ProcessadorDeArquivos(EscritorTXT escritorTXT, Enfileirador enfileirador, LeitorTXT leitorTXT, MovedorDeArquivos movedorDeArquivos) {
         this.escritorTXT = escritorTXT;
         this.enfileirador = enfileirador;
         this.leitorTXT = leitorTXT;
-        this.movedorDeArquivo = movedorDeArquivo;
+        this.movedorDeArquivos = movedorDeArquivos;
     }
 
     public void processaArquivo(String requisicao) {
@@ -35,7 +35,7 @@ public class ProcessadorDeArquivos {
             if (nomeArquivo != null) {
                 String arquivoLido = leitorTXT.leia(nomeArquivo, DiretorioEntrada);
                 enfileirador.enviaMensagem(arquivoLido);
-                movedorDeArquivo.moveArquivo(nomeArquivo, DiretorioEntrada, DiretorioProcessados);
+                movedorDeArquivos.moveArquivo(nomeArquivo, DiretorioEntrada, DiretorioProcessados);
             }
         } catch (IOException e) {
             System.out.println("Erro ao escrever/ler arquivo. " + e.getMessage());
