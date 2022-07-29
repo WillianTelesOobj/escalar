@@ -30,13 +30,14 @@ public class Receiver implements MessageListener {
             String mensagemRecebida = ((TextMessage) message).getText();
 
             String jmsMessageID = message.getJMSMessageID();
-            int indexId = jmsMessageID.indexOf("3:1:1:1:");
-            String numeroId = jmsMessageID.substring(indexId + 8);
+            int indexId = jmsMessageID.indexOf("1:1:1:");
+            String numeroId = jmsMessageID.substring(indexId + 6);
 
             treeMap.put(Integer.valueOf(numeroId), mensagemRecebida);
             if (treeMap.containsValue("FINAL")) {
                 String listaMensagens = treeMap.toString();
                 tratadorDeArquivos.tratarArquivo(listaMensagens);
+                treeMap.clear();
             }
         } catch (JMSException e) {
             logger.error("Problema ao consumir mensagem da fila {}.", "pre_impressao");
