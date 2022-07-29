@@ -23,15 +23,13 @@ public class TratadorDeArquivos {
 
             int indexSubItinerario = mensagemRecebida.indexOf("SUB-ITINERÁRIO : ");
             int index22003 = mensagemRecebida.indexOf("22003");
-            String numeroSubItinerario = mensagemRecebida.substring(indexSubItinerario + 17, index22003);
+            String numeroSubItinerario = mensagemRecebida.substring(indexSubItinerario + 17, index22003).replace("\n", "");
 
             int indexSeq = mensagemRecebida.indexOf("SEQ :");
             int index22008 = mensagemRecebida.indexOf("22008");
-            String numeroSequenciamento = mensagemRecebida.substring(indexSeq + 5, index22008);
+            String numeroSequenciamento = mensagemRecebida.substring(indexSeq + 5, index22008).replace("\n", "");
 
-            String subItinerarioESequenciamento = numeroSubItinerario + "|" + numeroSequenciamento;
-            String mensagemTratada = subItinerarioESequenciamento.replace(System.getProperty("line.separator"), "");
-
+            String mensagemTratada = numeroSubItinerario + "|" + numeroSequenciamento;
             if (i <= listaMensagensArray.length -2) {
                 mensagensTratadas.append(mensagemTratada).append(" , ");
             } else if (i == listaMensagensArray.length - 1) {

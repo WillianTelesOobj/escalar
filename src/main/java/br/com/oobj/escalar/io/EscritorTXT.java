@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class EscritorTXT {
 
-    public <T> void escreve(String mensagem, String tipo, String diretorio) {
+    public <T> String escreve(String mensagem, String tipo, String diretorio) {
         try {
             LocalDateTime currentDateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
@@ -20,15 +20,18 @@ public class EscritorTXT {
                 entrada.write(mensagem);
                 entrada.close();
                 System.out.println("Arquivo de entrada salvo com sucesso!");
+                return "pre-impressao-" + formattedDateTime + ".txt";
             } else if (tipo.equals("saida")) {
                 FileWriter saida = new FileWriter(diretorio + "pre-impressao-" + formattedDateTime + "-retorno.txt");
                 saida.write(mensagem);
                 saida.close();
                 System.out.println("Arquivo de saída salvo com sucesso!");
+                return "pre-impressao-" + formattedDateTime + "-retorno.txt";
             }
         } catch (IOException e) {
             System.out.println("Erro ao salvar o arquivo!");
             e.printStackTrace();
         }
+        return "Arquivo não salvo!";
     }
 }
