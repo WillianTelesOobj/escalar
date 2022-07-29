@@ -10,12 +10,14 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import java.util.*;
 
 @Component
 public class Receiver implements MessageListener {
 
     private final Logger logger = LoggerFactory.getLogger(Enfileirador.class);
     private final TratadorDeArquivos tratadorDeArquivos;
+    private final TreeMap<Integer, String> treeMap = new TreeMap<>();
 
     public Receiver(TratadorDeArquivos tratadorDeArquivos) {
         this.tratadorDeArquivos = tratadorDeArquivos;
@@ -26,7 +28,16 @@ public class Receiver implements MessageListener {
     public void onMessage(Message message) {
         try {
             String mensagemRecebida = ((TextMessage) message).getText();
-            tratadorDeArquivos.tratarArquivo(mensagemRecebida);
+
+            String jmsMessageID = message.getJMSMessageID();
+            int indexId = jmsMessageID.indexOf("3:1:1:1:");
+            String numeroId = jmsMessageID.substring(indexId + 8);
+
+            treeMap.put(Integer.valueOf(numeroId), mensagemRecebida);
+            if (treeMap.containsValue("FINAL")) {
+                String listaMensagens = treeMap.toString();
+                tratadorDeArquivos.tratarArquivo(listaMensagens);
+            }
         } catch (JMSException e) {
             logger.error("Problema ao consumir mensagem da fila {}.", "pre_impressao");
             throw new RuntimeException(e.getMessage());
