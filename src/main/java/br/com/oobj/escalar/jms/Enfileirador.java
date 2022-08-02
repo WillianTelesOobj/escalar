@@ -21,13 +21,11 @@ public class Enfileirador {
         String[] requisicaoArray = arquivo.split("IMPRESSORA;MANIFESTO");
         for (int i = 1; i < (requisicaoArray.length); i++) {
             Message message = session.createTextMessage("IMPRESSORA;MANIFESTO" + requisicaoArray[i]);
-            message.setJMSMessageID(String.valueOf(i));
-            message.setJMSPriority(9);
+            message.setIntProperty("Ordem", i);
             producer.send(message);
             if (i == requisicaoArray.length - 1) {
                 message = session.createTextMessage("*****EOF*****");
-                message.setJMSMessageID(String.valueOf(i+1));
-                message.setJMSPriority(0);
+                message.setIntProperty("Ordem", i+1);
                 producer.send(message);
             }
         }
