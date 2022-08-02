@@ -19,7 +19,7 @@ public class IntegradorController {
     @PostMapping("/api/pre-impressao")
     public ResponseEntity<String> chegadaRequisicao(@RequestBody String requisicao) {
         try {
-            if (requisicao.startsWith("IMPRESSORA;MANIFESTO") && requisicao.endsWith("25000;STAPLE_TOP_LEFT")) {
+            if (requisicao.trim().startsWith("IMPRESSORA;MANIFESTO") && requisicao.trim().endsWith("25000;STAPLE_TOP_LEFT")) {
                 processadorDeArquivos.processaArquivo(requisicao);
                 return new ResponseEntity<>("{\"preImpressaoSolicitada\": \"true\"}", HttpStatus.OK);
             } else {
