@@ -3,6 +3,8 @@ package br.com.oobj.escalar.processador;
 import br.com.oobj.escalar.io.EscritorTXT;
 import br.com.oobj.escalar.io.LeitorTXT;
 import br.com.oobj.escalar.jms.Enfileirador;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,7 @@ import java.io.IOException;
 @Component
 public class ProcessadorDeArquivos {
 
+    private final Logger logger = LoggerFactory.getLogger(ProcessadorDeArquivos.class);
     @Value("${escalar.diretorio.entrada}")
     private String DiretorioEntrada;
     @Value("${escalar.diretorio.processados}")
@@ -38,11 +41,11 @@ public class ProcessadorDeArquivos {
                 movedorDeArquivos.moveArquivo(nomeArquivo, DiretorioEntrada, DiretorioProcessados);
             }
         } catch (IOException e) {
-            System.out.println("Erro ao escrever/ler arquivo. " + e.getMessage());
+            logger.error("Erro ao escrever/ler arquivo. " + e.getMessage());
         } catch (NamingException e) {
-            System.out.println("Erro ao configurar fila. " + e.getMessage());
+            logger.error("Erro ao configurar fila. " + e.getMessage());
         } catch (JMSException e) {
-            System.out.println("Erro ao enviar arquivo para fila. " + e.getMessage());
+            logger.error("Erro ao enviar arquivo para fila. " + e.getMessage());
         }
     }
 }
