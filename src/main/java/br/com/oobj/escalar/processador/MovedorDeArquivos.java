@@ -17,11 +17,11 @@ public class MovedorDeArquivos {
 
     public void moveArquivo(String nomeArquivo, String diretorioOrigem, String diretorioDestino) {
         try {
-            logger.info("Movendo arquivo de entrada para pasta de processados...");
+            logger.info("Movendo arquivo {} da pasta de entrada para pasta de processados...", nomeArquivo);
             Path pathSource = Paths.get(diretorioOrigem + nomeArquivo);
             Path pathTarget = Paths.get(diretorioDestino + nomeArquivo);
             Files.move(pathSource, pathTarget);
-            logger.info("Arquivo de entrada movido para pasta de processados!");
+            logger.info("Arquivo {} movido da pasta de entrada para pasta de processados!", nomeArquivo);
         } catch (IOException e) {
             e.printStackTrace();
         }

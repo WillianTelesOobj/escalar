@@ -18,6 +18,6 @@ public class SaidaDeArquivos {
     }
 
     public void enviaArquivo(String arquivoDeSaida) throws IOException {
-        escritorTXT.escreve(arquivoDeSaida, "saida", DiretorioSaida);
+        escritorTXT.escreve(arquivoDeSaida, "saída", DiretorioSaida);
     }
 }

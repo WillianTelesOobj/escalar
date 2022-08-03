@@ -13,28 +13,22 @@ import java.time.format.DateTimeFormatter;
 public class EscritorTXT {
 
     private final Logger logger = LoggerFactory.getLogger(EscritorTXT.class);
+    private String nomeArquivo = "";
 
     public <T> String escreve(String mensagem, String tipo, String diretorio) throws IOException {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
         String formattedDateTime = currentDateTime.format(formatter);
         if (tipo.equals("entrada")) {
-            logger.info("Salvando arquivo de entrada...");
-            String nomeArquivoEntrada = "pre-impressao-" + formattedDateTime + ".txt";
-            FileWriter entrada = new FileWriter(diretorio + nomeArquivoEntrada);
-            entrada.write(mensagem);
-            entrada.close();
-            logger.info("Arquivo de entrada salvo com sucesso!");
-            return nomeArquivoEntrada;
-        } else if (tipo.equals("saida")) {
-            logger.info("Salvando arquivo de saída...");
-            String nomeArquivoSaida = "pre-impressao-" + formattedDateTime + "-retorno.txt";
-            FileWriter saida = new FileWriter(diretorio + nomeArquivoSaida);
-            saida.write(mensagem);
-            saida.close();
-            logger.info("Arquivo de saída salvo com sucesso!");
-            return nomeArquivoSaida;
+            nomeArquivo = "pre-impressao-" + formattedDateTime + ".txt";
+        } else if (tipo.equals("saída")) {
+            nomeArquivo = "pre-impressao-" + formattedDateTime + "-retorno.txt";
         }
-        return null;
+        logger.info("Salvando arquivo {} na pasta de {}...", nomeArquivo, tipo);
+        FileWriter arquivo = new FileWriter(diretorio + nomeArquivo);
+        arquivo.write(mensagem);
+        arquivo.close();
+        logger.info("Arquivo {} salvo na pasta de {} com sucesso!", nomeArquivo, tipo);
+        return nomeArquivo;
     }
 }
