@@ -49,5 +49,5 @@ resposta ao evento de “chegada” de uma requisição no Integrador HTTP.
 Abaixo segue a amostra dos dados de entrada (enviados para o Integrador HTTP)
 e amostra dos dados de saída esperados (gerados pelo Receiver no final do fluxo).
 
-[contributing](Amostra dos dados de entrada.txt)
-[contributing](Amostra dos dados de saída.txt)
+[contributing](https://github.com/WillianTelesOobj/escalar/blob/main/Amostra%20dos%20dados%20de%20entrada.txt)
+[contributing](https://github.com/WillianTelesOobj/escalar/blob/main/Amostra%20dos%20dados%20de%20sa%C3%ADda.txt)
