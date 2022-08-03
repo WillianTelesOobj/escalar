@@ -49,5 +49,5 @@ resposta ao evento de “chegada” de uma requisição no Integrador HTTP.
 Abaixo segue a amostra dos dados de entrada (enviados para o Integrador HTTP)
 e amostra dos dados de saída esperados (gerados pelo Receiver no final do fluxo).
 
-Amostra dos dados de entrada.txt
-Amostra dos dados de saída.txt
+jetbrains://idea/navigate/reference?project=escalar&path=Amostra dos dados de entrada.txt
+jetbrains://idea/navigate/reference?project=escalar&path=Amostra dos dados de saída.txt
