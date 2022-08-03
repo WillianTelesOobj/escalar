@@ -1,19 +1,13 @@
 # Configurações do ambiente de desenvolvimento do Projeto
 - O projeto foi desenvolvido usando a ferramenta de build Maven 3.6.3
 - A versão do JDK (Java Development Kit) utilizado foi a 1.8 (Java 8).
-- Foi utilizado o Apache ActiveMQ versão 5.16.4 como message broker. O ActiveMQ não vem por padrão
-com o suporte a priorização ativado, sendo necessário ativá-lo no arquivo activemq.xml. O arquivo activemq.xml
-se encontra dentro da pasta conf (apache-activemq-5.16.4 > conf > activemq.xml). No exemplo abaixo,
-'prioritizedMessages' está habilitado para todas as filas:
-<destinationPolicy>
-  <policyMap>
-    <policyEntries>
-      <policyEntry queue=">" prioritizedMessages="true"/>
+- Foi utilizado o Apache ActiveMQ versão 5.16.4 como message broker.
 
 
 # Diretórios
 Por padrão, os diretórios de entrada, processados e saída estão configurados para a pasta: `src/main/resources/`.
-Estes diretórios podem ser trocado no arquivo application.properties da aplicação.
+Estes diretórios podem ser trocado no arquivo application.properties e as pastas serão geradas automaticamente
+assim que iniciada a aplicação na classe EscalarApplication.
 
 
 # Autenticação
@@ -23,6 +17,8 @@ Bearer Key será gerado e impresso na saída do console da aplicação.
 
 
 # Resumo do Projeto Escalar
+![img.png](img.png)
+
 Avaliação Prática do Alpinista Willian Teles Pinto para o Projeto Escalar da empresa Oobj Tecnologia da Informação.
 
 O projeto desenvolvido consiste de uma solução de integração nos moldes das soluções conhecidas no mercado.
