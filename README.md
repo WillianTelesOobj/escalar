@@ -17,13 +17,13 @@ Bearer Key será gerado e impresso na saída do console da aplicação.
 
 
 # Resumo do Projeto Escalar
-![img.png](img.png)
-
 Avaliação Prática do Alpinista Willian Teles Pinto para o Projeto Escalar da empresa Oobj Tecnologia da Informação.
 
 O projeto desenvolvido consiste de uma solução de integração nos moldes das soluções conhecidas no mercado.
 Há 5 componentes principais: Sender, Integrador, Enfileirador, Broker e Receiver.
 Cada componente é descrito abaixo:
+
+![img.png](img.png)
 
 ● A aplicação Sender, que pode ser um ERP ou um PDV e, para este projeto, foi utilizada
 a ferramenta Postman para simular as chamadas aos endpoints da API de integração.
