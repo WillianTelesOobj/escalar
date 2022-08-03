@@ -43,3 +43,11 @@ simula através de saída no console a impressão dos manifestos de transporte.
 
 A execução do fluxo apresentado acima ocorre de forma automática em
 resposta ao evento de “chegada” de uma requisição no Integrador HTTP.
+
+
+## Caso de Teste
+Abaixo segue a amostra dos dados de entrada (enviados para o Integrador HTTP)
+e amostra dos dados de saída esperados (gerados pelo Receiver no final do fluxo).
+
+Amostra dos dados de entrada.txt
+Amostra dos dados de saída.txt
