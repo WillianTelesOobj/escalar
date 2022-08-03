@@ -50,5 +50,4 @@ Abaixo segue a amostra dos dados de entrada (enviados para o Integrador HTTP)
 e amostra dos dados de saída esperados (gerados pelo Receiver no final do fluxo).
 
 [Amostra dos dados de entrada](https://github.com/WillianTelesOobj/escalar/blob/main/Amostra%20dos%20dados%20de%20entrada.txt)
-
 [Amostra dos dados de saída](https://github.com/WillianTelesOobj/escalar/blob/main/Amostra%20dos%20dados%20de%20sa%C3%ADda.txt)
